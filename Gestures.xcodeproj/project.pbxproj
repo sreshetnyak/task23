@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A51F6CDA18C3B897006FEE38 /* tux.png in Resources */ = {isa = PBXBuildFile; fileRef = A51F6CD918C3B897006FEE38 /* tux.png */; };
 		A5C3C3D818C3B652008309E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5C3C3D718C3B652008309E4 /* Foundation.framework */; };
 		A5C3C3DA18C3B652008309E4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5C3C3D918C3B652008309E4 /* CoreGraphics.framework */; };
 		A5C3C3DC18C3B652008309E4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5C3C3DB18C3B652008309E4 /* UIKit.framework */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A51F6CD918C3B897006FEE38 /* tux.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tux.png; sourceTree = "<group>"; };
 		A5C3C3D418C3B652008309E4 /* Gestures.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gestures.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5C3C3D718C3B652008309E4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A5C3C3D918C3B652008309E4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -117,6 +119,7 @@
 				A5C3C3E918C3B652008309E4 /* Main.storyboard */,
 				A5C3C3EC18C3B652008309E4 /* TTViewController.h */,
 				A5C3C3ED18C3B652008309E4 /* TTViewController.m */,
+				A51F6CD918C3B897006FEE38 /* tux.png */,
 				A5C3C3EF18C3B652008309E4 /* Images.xcassets */,
 				A5C3C3DE18C3B652008309E4 /* Supporting Files */,
 			);
@@ -232,6 +235,7 @@
 				A5C3C3F018C3B652008309E4 /* Images.xcassets in Resources */,
 				A5C3C3E218C3B652008309E4 /* InfoPlist.strings in Resources */,
 				A5C3C3EB18C3B652008309E4 /* Main.storyboard in Resources */,
+				A51F6CDA18C3B897006FEE38 /* tux.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,6 +467,7 @@
 				A5C3C40818C3B653008309E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A5C3C40918C3B653008309E4 /* Build configuration list for PBXNativeTarget "GesturesTests" */ = {
 			isa = XCConfigurationList;
@@ -471,6 +476,7 @@
 				A5C3C40B18C3B653008309E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
