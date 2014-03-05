@@ -46,8 +46,34 @@
 //    5. Если я делаю свайп вправо, то давайте картинке анимацию поворота по часовой стрелке на 360 градусов
 //    6. То же самое для свайпа влево, только анимация должна быть против часовой (не забудьте остановить предыдущее кручение)
 //    7. По двойному тапу двух пальцев останавливайте анимацию
-
     
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(rightSwipeGesture:)];
+    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:swipeRight];
+    
+    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(leftSwipeGesture:)];
+    swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:swipeLeft];
+    
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(doubleTapTouch:)];
+    doubleTap.numberOfTapsRequired = 2;
+    doubleTap.numberOfTouchesRequired = 2;
+    [self.view addGestureRecognizer:doubleTap];
+}
+
+- (void)doubleTapTouch:(UITapGestureRecognizer *)gesture {
+    
+    NSLog(@"doubleTap");
+}
+
+- (void)leftSwipeGesture:(UISwipeGestureRecognizer *)gesture {
+    
+    NSLog(@"left");
+}
+
+- (void)rightSwipeGesture:(UISwipeGestureRecognizer *)gesture {
+
+    NSLog(@"right");
 }
 
 - (void)tapTouch:(UITapGestureRecognizer *)gesture {
