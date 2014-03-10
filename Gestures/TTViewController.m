@@ -8,9 +8,11 @@
 
 #import "TTViewController.h"
 
-@interface TTViewController ()
+@interface TTViewController () <UIGestureRecognizerDelegate>
 
 @property (weak,nonatomic) UIImageView *imgView;
+@property (assign,nonatomic) CGFloat scale;
+@property (assign,nonatomic) CGFloat deltaRotation;
 
 @end
 
@@ -59,34 +61,96 @@
     doubleTap.numberOfTapsRequired = 2;
     doubleTap.numberOfTouchesRequired = 2;
     [self.view addGestureRecognizer:doubleTap];
+    
+//    Супермен
+//    
+//    8. Добавьте возможность зумить и отдалять картинку используя пинч
+//    9. Добавьте возможность поворачивать картинку используя ротейшн
+    UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(pinchGesture:)];
+    pinch.scale = 2.0;
+    pinch.delegate = self;
+    [self.view addGestureRecognizer:pinch];
+    
+    UIRotationGestureRecognizer *rotation = [[UIRotationGestureRecognizer alloc]initWithTarget:self action:@selector(rotationGesture:)];
+    rotation.delegate = self;
+    [self.view addGestureRecognizer:rotation];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
+
+- (void)rotationGesture:(UIRotationGestureRecognizer *)gesture {
+
+    CGAffineTransform transform = self.imgView.transform;
+    
+    CGFloat newRotation = gesture.rotation - self.deltaRotation;
+    
+    self.imgView.transform = CGAffineTransformRotate(transform, newRotation);
+    
+    self.deltaRotation = gesture.rotation;
+    
+}
+
+- (void)pinchGesture:(UIPinchGestureRecognizer *)gesture {
+
+    NSLog(@"%f",gesture.velocity);
+    
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        self.scale = 1.f;
+    }
+    
+    CGAffineTransform curentTransform = self.imgView.transform;
+    
+    CGFloat transform = 1.f + gesture.scale - self.scale;
+    
+    
+    CGAffineTransform newTransform = CGAffineTransformScale(curentTransform, transform, transform);
+    
+    self.imgView.transform = newTransform;
+    
+    self.scale = gesture.scale;
+    
+}
+
+- (void)runSpinAnimationOnView:(UIView*)view duration:(CGFloat)duration rotations:(CGFloat)rotations {
+    
+    CABasicAnimation* rotationAnimation;
+    rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotationAnimation.toValue = [NSNumber numberWithFloat:rotations];
+    rotationAnimation.duration = duration;
+    
+    [view.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
 }
 
 - (void)doubleTapTouch:(UITapGestureRecognizer *)gesture {
     
-    NSLog(@"doubleTap");
+    [self.imgView.layer removeAllAnimations];
+    CGPoint point = CGPointMake(CGRectGetMidX([[self.imgView.layer presentationLayer] frame]), CGRectGetMidY([[self.imgView.layer presentationLayer] frame]));
+    self.imgView.center = point;
 }
 
 - (void)leftSwipeGesture:(UISwipeGestureRecognizer *)gesture {
     
-    NSLog(@"left");
+    [self runSpinAnimationOnView:self.imgView duration:2.0 rotations:M_PI*2 ];
 }
 
 - (void)rightSwipeGesture:(UISwipeGestureRecognizer *)gesture {
 
-    NSLog(@"right");
+    [self runSpinAnimationOnView:self.imgView duration:2.0 rotations:-M_PI*2 ];
 }
 
 - (void)tapTouch:(UITapGestureRecognizer *)gesture {
     
-    self.imgView.frame = [[self.imgView.layer presentationLayer] frame];
+    [self.imgView.layer removeAllAnimations];
+    CGPoint point = CGPointMake(CGRectGetMidX([[self.imgView.layer presentationLayer] frame]), CGRectGetMidY([[self.imgView.layer presentationLayer] frame]));
+    self.imgView.center = point;
     
     [UIView animateWithDuration:2
                      animations:^{
                          self.imgView.center = [gesture locationInView:self.view];
                      }];
-    
 }
-
 
 - (void)didReceiveMemoryWarning
 {
